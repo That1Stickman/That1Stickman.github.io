@@ -1,0 +1,93 @@
+<body>
+Sprite: <input type='file' id=spriteFile /> (example: pl010a_TexIdxEx.png)
+<br>Palette: <input type='file' id=paletteFile /> (example: pl010a_ColorPlteEx.png)
+<br><button id=go>Go</button> <a id='link'></a><br>
+</body>
+
+<style>
+body {
+	background-color: black;
+	color: white;
+}
+</style>
+<script>
+var spriteFile = document.getElementById('spriteFile');
+var paletteFile = document.getElementById('paletteFile');
+var go = document.getElementById('go');
+var link = document.getElementById('link');
+
+var sprite = new Image;
+var palette = new Image;
+
+spriteFile.onchange = function() {
+	readURL(this,sprite);
+}
+paletteFile.onchange = function() {
+	readURL(this,palette);
+}
+go.onclick = function() {
+	colorize(sprite,palette);
+}
+
+var canvas = document.createElement('canvas');
+var ctx = canvas.getContext('2d');
+document.body.appendChild(canvas);
+var paletteCanvas = document.createElement('canvas');
+var paletteCtx = paletteCanvas.getContext('2d');
+
+function readURL(input,img) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+			img.src = e.target.result;
+			img.name = input.files[0].name;
+		}
+		reader.readAsDataURL(input.files[0]);
+	}
+}
+		
+function getValueAt(imgData,x,y,off = 0) {
+	return imgData.data[(y*imgData.width + x)*4 + off];
+}
+function setValueAt(imgData,x,y,off = 0,data) {
+	imgData.data[(y*imgData.width + x)*4 + off] = data;
+}
+function setColorAt(imgData,x,y,r,g,b,a) {
+	setValueAt(imgData,x,y,0,r);
+	setValueAt(imgData,x,y,1,g);
+	setValueAt(imgData,x,y,2,b);
+	setValueAt(imgData,x,y,3,a);
+}
+function getColorAt(imgData,x,y) {
+	return [
+	getValueAt(imgData,x,y,0),
+	getValueAt(imgData,x,y,1),
+	getValueAt(imgData,x,y,2),
+	getValueAt(imgData,x,y,3)];
+}
+
+function colorize(sprite,palette) {
+	canvas.width = sprite.width;
+	canvas.height = sprite.height;
+	ctx.drawImage(sprite,0,0);
+	
+	paletteCanvas.width = palette.width;
+	paletteCanvas.height = palette.height;
+	paletteCtx.drawImage(palette,0,0);
+	
+	var spriteData = ctx.getImageData(0,0,sprite.width,sprite.height);
+	var paletteData = paletteCtx.getImageData(0,0,palette.width,palette.height);
+	for (var x = 0; x < spriteData.width; x++) {
+		for (var y = 0; y < spriteData.height; y++) {
+			var pos = getValueAt(spriteData,x,y,3);
+			var color = getColorAt(paletteData,pos,0);
+			setColorAt(spriteData,x,y,...color);
+		}
+	}
+	ctx.putImageData(spriteData,0,0);
+	
+	link.innerHTML = 'Download';
+	link.download = sprite.name;
+	link.href = canvas.toDataURL();
+}
+</script>
