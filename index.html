@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>title</title>
+    <script src="index.js"></script>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <form id="decoderForm" action="javascript:void(0);" onsubmit="decoder()" autocomplete="off" spellcheck="false">
+        <label for="codeInput">Enter code:</label>
+        <br>
+        <textarea id="codeInput" name="codeInput" rows = "20" cols = "70" required></textarea>
+        <br>
+        <button type="submit">Decode</button>
+        <div id="output"></div>
+    </form>
+<br>
+     <form id="encoderForm" action="javascript:void(0);" onsubmit="encoder()" autocomplete="off" spellcheck="false">
+        <label for="encodeInput">Enter code:</label>
+        <br>
+        <textarea id="encodeInput" name="encodeInput" rows = "20" cols = "70" required></textarea>
+        <br>
+        <button type="submit">Decode</button>
+        <div id="encodeoutput"></div>
+    </form>
+</body>
+</html>
