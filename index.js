@@ -1,9 +1,9 @@
 function decoder() {
     let codestring = document.getElementById("codeInput").value;
-    if (!validateInput(codestring)) {
+    /*if (!validateInput(codestring)) {
         alert("Invalid input! Please enter only letters, spaces, and periods.");
         return;
-    }
+    }*/
     console.log("Decoding the following code:", codestring);
     // This function will handle the decoding logic
     codestring = codestring.replace(/ |\n/g, "");
@@ -20,10 +20,10 @@ function decoder() {
 
 function encoder() {
     let codestring = document.getElementById("encodeInput").value;
-    if (!validateInput(codestring)) {
+    /*if (!validateInput(codestring)) {
         alert("Invalid input! Please enter only letters, spaces, and periods.");
         return;
-    }
+    }*/
     let lastvowel = " ";
     codestring=codestring.split("")
     console.log("Encoding the following code:", codestring);
