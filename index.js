@@ -77,6 +77,6 @@ function encoder() {
 }
 
 function validateInput(input) {
-    const regex = /^[a-zA-Z\s.?!'"]*$/;
+    const regex = /^[a-zA-Z0-9\s.?!'"]*$/;
     return regex.test(input);
 }
