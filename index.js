@@ -1,10 +1,13 @@
+/* Fighting Fantasy Cipher Program
+* Last updated December 23 2025
+* Copright (c) 2025 Katherine Vrtismarsh */
+
 function decoder() {
     let codestring = document.getElementById("codeInput").value;
-    /*if (!validateInput(codestring)) {
-        alert("Invalid input! Please enter only letters, spaces, and punctuation.");
+    if (!validateInput(codestring)) {
+        alert("Invalid input! No special characters other than quotes or punctuation.");
         return;
-    }*/
-    console.log("Decoding the following code:", codestring);
+    }
     // This function will handle the decoding logic
     codestring = codestring.replace(/ |\n/g, "");
     codestring = codestring.replace(/a|e|i|o|u/gi, " ");
@@ -15,18 +18,16 @@ function decoder() {
     codestring = codestring.replace(/p/g, "o").replace(/P/g, "O");
     codestring = codestring.replace(/v/g, "u").replace(/V/g, "U");
     document.getElementById("output").textContent = codestring;
-    console.log("Decoder function called");
 }
 
 function encoder() {
     let codestring = document.getElementById("encodeInput").value;
-    /*if (!validateInput(codestring)) {
+    if (!validateInput(codestring)) {
         alert("Invalid input! Please enter only letters, spaces, and punctuation.");
         return;
-    }*/
+    }
     let lastvowel = " ";
     codestring=codestring.split("")
-    console.log("Encoding the following code:", codestring);
     newCodeString = [];
     // This function will handle the encoding logic
     for (element of codestring) {
@@ -68,16 +69,14 @@ function encoder() {
         }else{
             newCodeString.push(element);
         }
-        console.log(lastvowel);
     }
     
     // This function will handle the encoding logic
     newCodeString = newCodeString.join("");
     document.getElementById("encodeoutput").textContent = newCodeString;
-    console.log("Decoder function called");
 }
 
 function validateInput(input) {
-    const regex = /^[a-zA-Z\s.?!]*$/;
+    const regex = /^[a-zA-Z\s.?!\"]*$/;
     return regex.test(input);
 }
