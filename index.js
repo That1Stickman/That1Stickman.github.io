@@ -1,6 +1,6 @@
 /* Fighting Fantasy Cipher Program
 * Last updated December 23 2025
-* Copright (c) 2025 Katherine Vrtismarsh */
+* By Katherine Vrtismarsh */
 
 function decoder() {
     let codestring = document.getElementById("codeInput").value;
